@@ -53,6 +53,10 @@ h1 a {
     font-weight: 500;
 }
 
+#status {
+    margin: 0 auto;
+}
+
 .options {
     position: fixed;
     top: 0;
@@ -184,6 +188,11 @@ main {
     .overwiew {
         text-align: left;
     }
+/* 
+    .time,
+    .desc {
+        margin-left: 1.5em;
+    } */
 
     .details ul {
         grid-template-columns: repeat(2, minmax(100px, 200px));
