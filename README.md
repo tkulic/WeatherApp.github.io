@@ -1,3 +1,3 @@
 # WeatherApp.github.io
 
-https://WeatherApp.github.io
+https://tkulic.github.io/weatherapp.github.io/
