@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="/style.css" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛅️</text></svg>">
+    <title>WeatherApp</title>
+</head>
+
+<body>
+    <header>
+        <h1><a href="#">WeatherApp</a></h1>
+        <span id="status">Loading</span>
+        <br />
+
+        <div>
+            <span id="options-open">⚙️</span>
+            <div class="options">
+                <span id="options-close">✖️</span>
+                <p class="option-desc">Switch temperature to: </p>
+                <ul>
+                    <li id="celsius" class="option option-active">Celsius</li>
+                    <li id="fahrenheit" class="option">Fahrenheit</li>
+                </ul>
+
+                <p class="option-desc">Dark mode: </p>
+                <ul>
+                    <li id="dark-mode-enable" class="option">Enable</li>
+                    <li id="dark-mode-disable" class="option option-active">Disable</li>
+                </ul>
+
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="display"></div>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
