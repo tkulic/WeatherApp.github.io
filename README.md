@@ -1,3 +1,1 @@
-# WeatherApp.github.io
-
-https://tkulic.github.io/weatherapp.github.io/
+A simple weather app, created using by FreeCodeCamp API.
