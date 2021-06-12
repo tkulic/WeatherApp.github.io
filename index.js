@@ -1,17 +1,48 @@
-import { icon, displayTempCelsius, displayTempFahrenheit } from "./utils.js"
-import "./options.js"
+import { getIcon, displayCelsius, displayFahrenheit, getCurrentTime } from "./utils.js"
+
+let weatherData
+const API_ENDPOINT = "https://weather-proxy.freecodecamp.rocks/"
 
 const status = document.getElementById("status")
-const display = document.getElementById("display")
+const main = document.getElementById("main")
+const title = document.getElementById("title")
+const time = document.getElementById("time")
+const icon = document.getElementById("icon")
+const desc = document.getElementById("desc")
+const temp = document.getElementById("temp")
+const fineprintTemp = document.getElementById("fineprint-temp")
+const pressure = document.getElementById("pressure")
+const humidity = document.getElementById("humidity")
+const wind = document.getElementById("wind")
 
-// Retrieve location
+function updateOverview(weatherData) {
+    title.textContent = weatherData.name + ", " + weatherData.sys.country
+    time.textContent = getCurrentTime()
+    icon.textContent = getIcon(weatherData.weather[0].main)
+    desc.textContent = weatherData.weather[0].description
+    temp.textContent = displayCelsius(weatherData)[0]
+    fineprintTemp.textContent = displayCelsius(weatherData)[1]
+    pressure.textContent = weatherData.main.pressure + " hPa"
+    humidity.textContent = weatherData.main.humidity + " %"
+    wind.textContent = weatherData.wind.speed + " m/s"
+}
+
+async function getWeather(url) {
+    const res = await fetch(url)
+    const data = await res.json()
+    weatherData = data
+
+    main.classList.remove("hidden")
+    updateOverview(data)
+    status.textContent = ""
+}
 
 function retrieved(position) {
     const lat = position.coords.latitude
     const lon = position.coords.longitude
-    getWeather(`https://weather-proxy.freecodecamp.rocks/api/current?lon=${lon}&lat=${lat}`)
 
-    status.innerText = ""
+    const route = `api/current?lon=${lon}&lat=${lat}`
+    getWeather(API_ENDPOINT + route)
 }
 
 function failed() {
@@ -19,56 +50,62 @@ function failed() {
 }
 
 if (navigator.geolocation) {
-    status.innerText = "Locating..."
+    status.textContent = "Locating..."
     navigator.geolocation.getCurrentPosition(retrieved, failed)
 }
 
-// Main function //
 
-async function getWeather(url) {
-    const res = await fetch(url)
-    const data = await res.json()
 
-    // Current time
+/////////////
+// OPTIONS //
+/////////////
 
-    const time = new Date()
-    const hours = time.getHours()
-    const minutes = time.getMinutes()
+// Options menu toggle
 
-    display.innerHTML = `
-        <div class="overwiew">
-            <p class="title">${data.name}, ${data.sys.country}<p>
-            <p class="time">${hours}:${minutes < 10 ? 0 : ""}${minutes} <p>
-            <p class="icon">${icon(data.weather[0].main)}</p>
-            <p class="desc">${data.weather[0].description}<p>
-        </div>
+const optionsOpen = document.getElementById("options-open")
+const optionsClose = document.getElementById("options-close")
+const options = document.querySelector(".options")
 
-        <div class="details">
-            <ul>
-                <li id="temp">Temperature<hr />${displayTempCelsius(data)[0]} <span class="fineprint">/${displayTempCelsius(data)[1]}</span></li>
-                <li>Pressure<hr />${data.main.pressure} hPa</li>
-                <li>Humidity<hr />${data.main.humidity}%</li>
-                <li>Wind<hr />${data.wind.speed}m/s</li>
-            </ul>
-        </div>
-        `
+optionsOpen.addEventListener("click", () => {
+    options.classList.add("options-open")
+})
 
-    // Switch temperature unit
+optionsClose.addEventListener("click", () => {
+    options.classList.remove("options-open")
+})
 
-    const tempDisplay = document.getElementById("temp")
-    const celsiusBtn = document.getElementById("celsius")
-    const fahrenheitBtn = document.getElementById("fahrenheit")
+// dark mode
 
-    celsiusBtn.addEventListener("click", () => {
-        celsiusBtn.classList.add("option-active")
-        fahrenheitBtn.classList.remove("option-active")
-        tempDisplay.innerHTML = `Temperature<hr />${displayTempCelsius(data)[0]} <span class="fineprint">/${displayTempCelsius(data)[1]}</span>`
-    })
+const darkModeEnable = document.getElementById("dark-mode-enable")
+const darkModeDisable = document.getElementById("dark-mode-disable")
 
-    fahrenheitBtn.addEventListener("click", () => {
-        fahrenheitBtn.classList.add("option-active")
-        celsiusBtn.classList.remove("option-active")
-        tempDisplay.innerHTML = `Temperature<hr />${displayTempFahrenheit(data)[0]} <span class="fineprint">/${displayTempFahrenheit(data)[1]}</span>`
-    })
+darkModeEnable.addEventListener("click", () => {
+    darkModeEnable.classList.add("option-active")
+    darkModeDisable.classList.remove("option-active")
+    document.body.classList.add("dark-mode")
+})
 
-}
+darkModeDisable.addEventListener("click", () => {
+    darkModeDisable.classList.add("option-active")
+    darkModeEnable.classList.remove("option-active")
+    document.body.classList.remove("dark-mode")
+})
+
+// switch temperature unit
+
+const celsiusBtn = document.getElementById("celsius")
+const fahrenheitBtn = document.getElementById("fahrenheit")
+
+celsiusBtn.addEventListener("click", () => {
+    celsiusBtn.classList.add("option-active")
+    fahrenheitBtn.classList.remove("option-active")
+    temp.textContent = displayCelsius(weatherData)[0]
+    fineprintTemp.textContent = displayCelsius(weatherData)[1]
+})
+
+fahrenheitBtn.addEventListener("click", () => {
+    fahrenheitBtn.classList.add("option-active")
+    celsiusBtn.classList.remove("option-active")
+    temp.textContent = displayFahrenheit(weatherData)[0]
+    fineprintTemp.textContent = displayFahrenheit(weatherData)[1]
+})

@@ -1,6 +1,6 @@
 # Weather App
 
-Weather application for fetching weather data for the current location. This is an enhanced solution to the [_Show the local weather_ Challenge](https://www.freecodecamp.org/learn/coding-interview-prep/take-home-projects/show-the-local-weather) by [freeCodeCamp](https://www.freecodecamp.org).
+Application for fetching weather data for the current location. This is an enhanced solution to the [_Show the local weather_ Challenge](https://www.freecodecamp.org/learn/coding-interview-prep/take-home-projects/show-the-local-weather) by [freeCodeCamp](https://www.freecodecamp.org).
 
 ## Table of contents
 
@@ -27,7 +27,7 @@ Objective: Build a CodePen.io app that is functionally similar to this [solution
 
 -   [Demo](https://codepen.io/toni00/full/ExZzXRN)
 -   [CodePen - Source Code](https://codepen.io/toni00/pen/ExZzXRN)
--   [GitHub repository](https://github.com/tkulic/weatherapp.github.io)
+-   [GitHub repository](https://github.com/tkulic/weather-app)
 
 ## Technologies
 

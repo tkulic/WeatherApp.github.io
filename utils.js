@@ -1,6 +1,11 @@
-// Weather icon
+export function getCurrentTime() {
+    const time = new Date()
+    const hours = time.getHours()
+    const minutes = time.getMinutes()
+    return `${hours}:${minutes < 10 ? 0 : ""}${minutes}`
+}
 
-export const icon = (weatherData) => {
+export function getIcon(weatherData) {
     switch (weatherData) {
         case "Clear":
             return "☀️"
@@ -20,15 +25,15 @@ export const icon = (weatherData) => {
     }
 }
 
-// Temperature
+// temperature unit converters
 
-export const displayTempCelsius = (weatherData) => {
+export function displayCelsius(weatherData) {
     const celsius = `${Math.round(weatherData.main.temp)}°C`
     const celsiusFeelsLike = `${Math.round(weatherData.main.feels_like)}°C`
     return [celsius, celsiusFeelsLike]
 }
 
-export const displayTempFahrenheit = (weatherData) => {
+export function displayFahrenheit(weatherData) {
     const fahrenheit = `${Math.round(weatherData.main.temp * 9 / 5 + 32)} °F`
     const fahrenheitFeelsLike = `${Math.round(weatherData.main.feels_like * 9 / 5 + 32)} °F`
     return [fahrenheit, fahrenheitFeelsLike]
